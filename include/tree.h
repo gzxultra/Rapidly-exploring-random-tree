@@ -16,7 +16,8 @@ class Tree {
     vector<Node> getChildren();
     void addChild(Node *node, Node *newNode);
     double calcDistance(Node *node1, Node *new2);
-    Node* findClosestNode(Node *node);
+    Node* findClosestNode(Node *node, double &distance);
+    bool extendNewNode(Node *node);
 
   private:
     Node *root;

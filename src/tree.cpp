@@ -18,7 +18,7 @@ double Tree::calcDistance(Node *node1, Node *node2) {
 }
 
 
-Node* Tree::findClosestNode(Node *node) {
+Node* Tree::findClosestNode(Node *node, double &distance) {
     // conduct a DFS search
 
     Node *closest, *p;
@@ -38,6 +38,24 @@ Node* Tree::findClosestNode(Node *node) {
             stack.push_back(child);
         }
     }
-
+    distance = minDistance;
     return closest;
+}
+
+bool Tree::extendNewNode(Node *node) {
+    const float epsilon = 0.1;  // the very short distance we're gonna move
+    double minDistance = 0.0;
+    Node *closest = findClosestNode(node, minDistance);
+    if (closest == NULL)
+        return false;
+
+    float deltaX = node->x - closest->x;
+    float deltaY = node->y - closest->y;
+    float theta = atan2(deltaY, deltaX);
+    float xNewX = closest->x + epsilon * cos(theta);
+    float xNewY = closest->y + epsilon * sin(theta);
+
+    Node XNew = Node(xNewX, xNewY, 0);
+    addChild(closest, &XNew);
+    return true;
 }
