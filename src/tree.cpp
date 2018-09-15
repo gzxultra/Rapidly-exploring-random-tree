@@ -1,34 +1,28 @@
 #include "tree.h"
+#include "node.h"
+
 #include <iostream>
 #include <cmath>
-
 
 using namespace std;
 
 
-TreeNode::TreeNode(float x, float y, float theta) {
-    this->x = x;
-    this->y = y;
-    this->theta = theta;
-    this->parent = NULL;
-}
-
-void Tree::addChild(TreeNode *node, TreeNode *newNode) {
+void Tree::addChild(Node *node, Node *newNode) {
     node->children.push_back(newNode);
     newNode->parent = node;
 }
 
 
-double Tree::calcDistance(TreeNode *node1, TreeNode *node2) {
+double Tree::calcDistance(Node *node1, Node *node2) {
     return sqrt(pow(node1->x - node2->x, 2) + pow(node1->y - node2->y, 2));
 }
 
 
-TreeNode* Tree::findClosestNode(TreeNode *node) {
+Node* Tree::findClosestNode(Node *node) {
     // conduct a DFS search
 
-    TreeNode *closest, *p;
-    vector<TreeNode *> stack;
+    Node *closest, *p;
+    vector<Node *> stack;
     double minDistance, myDistance = -1.0;
 
     stack.push_back(node);
