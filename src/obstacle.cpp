@@ -14,7 +14,7 @@ BaseObstacle::BaseObstacle(float center_x, float center_y) {
 
 
 bool CubeObstacle::isValidNode(Node *node) {
-    if (center_x - width / 2 <= node->x && node->x  < center_x + width / 2 && center_y - height / 2 <= node->y && node->y < height / 2) {
+    if (center_x - width / 2 <= node->x && node->x  < center_x + width / 2 && center_y - height / 2 <= node->y && node->y < center_y + height / 2) {
         return true;
     } else {
         return false;

@@ -2,6 +2,7 @@
 #define WORKSPACE_H
 
 #include <vector>
+#include "tree.h"
 #include "node.h"
 #include "obstacle.h"
 

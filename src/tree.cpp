@@ -20,15 +20,19 @@ double Tree::calcDistance(Node *node1, Node *node2) {
 
 Node* Tree::findClosestNode(Node *node, double &distance) {
     // conduct a DFS search
+    if (root == NULL) {
+        return NULL;
+    }
 
     Node *closest, *p;
     vector<Node *> stack;
     double minDistance, myDistance = -1.0;
 
-    stack.push_back(node);
+    stack.push_back(root);
 
     while (!stack.empty()) {
         p = stack.back();
+        stack.pop_back();
         myDistance = calcDistance(node, p);
         if (-1 == minDistance || myDistance < minDistance) {
             minDistance = myDistance;
@@ -42,20 +46,19 @@ Node* Tree::findClosestNode(Node *node, double &distance) {
     return closest;
 }
 
-bool Tree::extendNewNode(Node *node) {
-    const float epsilon = 0.1;  // the very short distance we're gonna move
+Node* Tree::extendNewNode(Node *node, Node* closest) {
+    const float epsilon = 0.01;  // the very short distance we're gonna move
     double minDistance = 0.0;
-    Node *closest = findClosestNode(node, minDistance);
+    closest = findClosestNode(node, minDistance);
     if (closest == NULL)
-        return false;
+        return NULL;
 
     float deltaX = node->x - closest->x;
     float deltaY = node->y - closest->y;
     float theta = atan2(deltaY, deltaX);
-    float xNewX = closest->x + epsilon * cos(theta);
-    float xNewY = closest->y + epsilon * sin(theta);
+    float xOfNewNode = closest->x + epsilon * cos(theta);
+    float yOfNewNode = closest->y + epsilon * sin(theta);
 
-    Node XNew = Node(xNewX, xNewY, 0);
-    addChild(closest, &XNew);
-    return true;
+    Node* newNode = new Node(xOfNewNode, yOfNewNode, 0);
+    return newNode;
 }
