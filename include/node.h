@@ -3,18 +3,27 @@
 
 
 #include <vector>
+#include <string>
 
-using namespace std;
+// using namespace std;
 
 
 
 class Node {
-  public:
-    float x, y, theta;
-
-    Node(float x, float y, float theta);
+  private:
     Node *parent;
-    vector <Node*> children;
+
+  public:
+    Node(float x, float y, float theta);
+    std::vector <Node*> children;
+    bool setParentNode(Node* parent) { this->parent = parent; return true;}
+    Node* getParentNode() { return parent;}
+    std::string serialize();
+
+    // sorry, don't have enough time to put it fully OOPmakm
+    float x;
+    float y;
+    float theta;
 };
 
 #endif

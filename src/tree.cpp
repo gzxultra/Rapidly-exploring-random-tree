@@ -13,7 +13,7 @@ Tree::Tree(Node *root) {
 
 void Tree::addChild(Node *node, Node *newNode) {
     node->children.push_back(newNode);
-    newNode->parent = node;
+    newNode->setParentNode(node);
 }
 
 double Tree::calcDistance(Node *node1, Node *node2) {
