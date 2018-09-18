@@ -67,3 +67,23 @@ Node* Tree::extendNewNode(Node *node, Node* closest) {
     Node* newNode = new Node(xOfNewNode, yOfNewNode, 0);
     return newNode;
 }
+
+
+int Tree::countTotalNodes() {
+    vector<Node*> stack;
+    stack.push_back(root);
+    int nNodes = 0;
+    Node* p;
+
+    while (!stack.empty()) {
+        p = stack.back();
+        stack.pop_back();
+        if (p == NULL) continue;
+        else nNodes ++;
+
+        for (auto child: p->children) {
+            stack.push_back(child);
+        }
+    }
+    return nNodes;
+}

@@ -18,6 +18,7 @@ class Tree {
     Node* findClosestNode(Node *node, double &distance);
     Node* extendNewNode(Node *node, Node* closest);
     Node* getRoot() {return root;}
+    int countTotalNodes();
 
   private:
     Node *root;

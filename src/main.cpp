@@ -32,11 +32,11 @@ int main() {
         newNode = t->extendNewNode(node, nearestNodeOnTree);
         if (w.isValidMoveOnWorkSpace(nearestNodeOnTree, newNode)) {
             t->addChild(nearestNodeOnTree, newNode);
-            cout << "newChild Added " << distance << endl;
+            cout << "newChild Added " << '(' << newNode->x << ", " << newNode->y << ')' << endl;
         } else {
             cout << "Not Valid!" << endl;
         }
     }
-    cout << "yes!" << endl;
+    cout << "Yes! Total Nodes is " << t->countTotalNodes() << endl;
     return 0;
 }

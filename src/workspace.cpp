@@ -65,8 +65,8 @@ Node* WorkSpace::generateRandomValidNode(Tree* tree) {
 bool WorkSpace::isValidMoveOnWorkSpace(Node* fromNode, Node* toNode) {
     bool isValidMove = true;
     for (CubeObstacle* co : obstacles) {
-        if (!co->isValidMove(fromNode, toNode)) {
-            cout << "Obstructed!" <<endl;
+        if (co->isValidMove(fromNode, toNode)) {
+            cout << "Obstructed!" << co->center_x << co->center_y << '(' << fromNode->x << ", " << fromNode->y << ')' << '(' << toNode->x << ", " << toNode->y << ')' <<  endl;
             isValidMove = false;
             break;
         }
