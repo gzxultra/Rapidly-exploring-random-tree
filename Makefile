@@ -1,6 +1,6 @@
 CXX=g++
 
-EXE = RRT
+EXE = RRT_HW
 
 SRC_DIR = src
 OBJ_DIR = obj

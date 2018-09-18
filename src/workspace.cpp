@@ -32,30 +32,44 @@ Node* WorkSpace::generateRandomValidNode(Tree* tree) {
 
     Node* randomNode = NULL;
     Node* closest = NULL;
+    bool isObstructed = false;
+    bool isValid = false;
 
     while (true) {
         randomNode = new Node(distX(eng), distY(eng), 0);
-        cout << randomNode->x << ' ' << randomNode->y << endl;
 
         // test if node already on the tree
         double distance = 0;
         closest = tree->findClosestNode(randomNode, distance);
-        if (closest != NULL and distance == 0) {
-            cout << "distance == 0" << closest << endl;
-            break;
+        if (closest == NULL or distance != 0) {
+            isValid = true;
+        } else {
             continue;
         }
 
         // test if node been obstructed
+        isObstructed = false;
         for (CubeObstacle* co : obstacles) {
             if (!co->isValidNode(randomNode)) {
-                cout << randomNode->x << ' ' << randomNode->y << "obstructed" << endl;
-                continue;
+                isObstructed = true;
+                break;
             }
         }
+        if (isObstructed == false && isValid == true) break;
     }
 
     return randomNode;
 }
 
 
+bool WorkSpace::isValidMoveOnWorkSpace(Node* fromNode, Node* toNode) {
+    bool isValidMove = true;
+    for (CubeObstacle* co : obstacles) {
+        if (!co->isValidMove(fromNode, toNode)) {
+            cout << "Obstructed!" <<endl;
+            isValidMove = false;
+            break;
+        }
+    }
+    return isValidMove;
+}

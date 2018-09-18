@@ -7,34 +7,39 @@
 using namespace std;
 
 
+Tree::Tree(Node *root) {
+    this->root = root;
+}
+
 void Tree::addChild(Node *node, Node *newNode) {
     node->children.push_back(newNode);
     newNode->parent = node;
 }
 
-
 double Tree::calcDistance(Node *node1, Node *node2) {
     return sqrt(pow(node1->x - node2->x, 2) + pow(node1->y - node2->y, 2));
 }
 
-
 Node* Tree::findClosestNode(Node *node, double &distance) {
     // conduct a DFS search
     if (root == NULL) {
+        cout << "ehh, no closest!" << endl;
         return NULL;
     }
 
     Node *closest, *p;
     vector<Node *> stack;
-    double minDistance, myDistance = -1.0;
+    double minDistance = -1;
+    double myDistance = -1.0;
 
     stack.push_back(root);
 
     while (!stack.empty()) {
         p = stack.back();
         stack.pop_back();
+
         myDistance = calcDistance(node, p);
-        if (-1 == minDistance || myDistance < minDistance) {
+        if (-1.0 == minDistance || myDistance < minDistance) {
             minDistance = myDistance;
             closest = p;
         }
@@ -47,7 +52,7 @@ Node* Tree::findClosestNode(Node *node, double &distance) {
 }
 
 Node* Tree::extendNewNode(Node *node, Node* closest) {
-    const float epsilon = 0.01;  // the very short distance we're gonna move
+    const float epsilon = 0.1;  // the very short distance we're gonna move
     double minDistance = 0.0;
     closest = findClosestNode(node, minDistance);
     if (closest == NULL)
