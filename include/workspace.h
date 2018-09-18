@@ -19,6 +19,7 @@ class WorkSpace {
     bool isCloseToTheGoal(Node* node);
     bool setSrc(Node* src) {this->src = src; return true;}
     bool setGoal(Node* goal) {this->goal = goal; return true;}
+    vector<Node*> getRRTPath(Tree* tree);
 
   private:
     float x1, y1, x2, y2;

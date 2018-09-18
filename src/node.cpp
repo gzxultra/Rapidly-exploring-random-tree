@@ -18,6 +18,6 @@ std::string Node::serialize() {
     // https://stackoverflow.com/a/332132/5159179
     std::ostringstream strs;
     strs << "(" << x << ", " << y << ")";
-    std::string str = strs.str();
-    return str;
+    std::string ret = strs.str();
+    return ret;
 }

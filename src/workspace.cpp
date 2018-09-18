@@ -82,3 +82,13 @@ bool WorkSpace::isCloseToTheGoal(Node* node) {
         return false;
     }
 }
+
+vector<Node*> WorkSpace::getRRTPath(Tree* tree) {
+    vector<Node*> path;
+    Node* p = goal;
+    while (p != NULL and p != src) {
+        path.push_back(p);
+        p = p->getParentNode();
+    }
+    return path;
+}

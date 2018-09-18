@@ -38,6 +38,7 @@ int main() {
             cout << "newChild Added " << newNode->serialize() << endl;
             if (w.isCloseToTheGoal(newNode)) {
                 cout << "Goal Found!" << endl;
+                t->addChild(nearestNodeOnTree, goal);
                 break;
             }
         } else {
@@ -45,5 +46,7 @@ int main() {
         }
     }
     cout << "Yes! Total Nodes is " << t->countTotalNodes() << endl;
+    vector<Node*> path = w.getRRTPath(t);
+    cout << "And the length of path is " << path.size() << endl;
     return 0;
 }
