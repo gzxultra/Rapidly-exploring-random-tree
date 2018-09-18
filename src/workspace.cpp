@@ -61,7 +61,6 @@ Node* WorkSpace::generateRandomValidNode(Tree* tree) {
     return randomNode;
 }
 
-
 bool WorkSpace::isValidMoveOnWorkSpace(Node* fromNode, Node* toNode) {
     bool isValidMove = true;
     for (CubeObstacle* co : obstacles) {
@@ -72,4 +71,14 @@ bool WorkSpace::isValidMoveOnWorkSpace(Node* fromNode, Node* toNode) {
         }
     }
     return isValidMove;
+}
+
+bool WorkSpace::isCloseToTheGoal(Node* node) {
+    const double fitDistance = 1.0;
+    double distance = sqrt(pow(goal->x - node->x, 2) + pow(goal->y - node->y, 2));
+    if (distance <= fitDistance && isValidMoveOnWorkSpace(goal, node)) {
+        return true;
+    } else {
+        return false;
+    }
 }

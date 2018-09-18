@@ -16,9 +16,14 @@ class WorkSpace {
     Node* generateRandomValidNode(Tree* tree);
     bool addObstacle(CubeObstacle* o);
     bool isValidMoveOnWorkSpace(Node* fromNode, Node* toNode);
+    bool isCloseToTheGoal(Node* node);
+    bool setSrc(Node* src) {this->src = src; return true;}
+    bool setGoal(Node* goal) {this->goal = goal; return true;}
 
   private:
     float x1, y1, x2, y2;
+    Node* src;
+    Node* goal;
     vector<CubeObstacle*> obstacles;
 };
 

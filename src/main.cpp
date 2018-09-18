@@ -17,9 +17,12 @@ int main() {
     w.addObstacle(o2);
     w.addObstacle(o3);
 
-    Node* root = new Node(0, 0, 0);
-    Tree* t = new Tree(root);
+    Node* src = new Node(0, 0, 0);
+    Node* goal = new Node(19, 19, 0);
+    w.setSrc(src);
+    w.setGoal(goal);
 
+    Tree* t = new Tree(src);
     Node* node = NULL;
     double distance = 0;
     Node* nearestNodeOnTree = NULL;
@@ -33,6 +36,10 @@ int main() {
         if (w.isValidMoveOnWorkSpace(nearestNodeOnTree, newNode)) {
             t->addChild(nearestNodeOnTree, newNode);
             cout << "newChild Added " << '(' << newNode->x << ", " << newNode->y << ')' << endl;
+            if (w.isCloseToTheGoal(newNode)) {
+                cout << "Goal Found!" << endl;
+                break;
+            }
         } else {
             cout << "Not Valid!" << endl;
         }
