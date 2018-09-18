@@ -48,5 +48,7 @@ int main() {
     cout << "Yes! Total Nodes is " << t->countTotalNodes() << endl;
     vector<Node*> path = w.getRRTPath(t);
     cout << "And the length of path is " << path.size() << endl;
+    path = w.getSmoothPath(path);
+    cout << "After smoothing, the length of path is " << path.size() << endl;
     return 0;
 }

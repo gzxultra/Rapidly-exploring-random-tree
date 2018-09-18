@@ -3,6 +3,7 @@
 #include "tree.h"
 #include <random>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -90,5 +91,21 @@ vector<Node*> WorkSpace::getRRTPath(Tree* tree) {
         path.push_back(p);
         p = p->getParentNode();
     }
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+vector<Node*> WorkSpace::getSmoothPath(vector<Node*> preliminaryPath) {
+    vector<Node*> path;
+    int current = 0;
+    int length = preliminaryPath.size();
+
+    while(current < length-1) {
+        int i = current + 1;
+        while (i < length and isValidMoveOnWorkSpace(preliminaryPath[current], preliminaryPath[i])) i++;
+        path.push_back(preliminaryPath[current]);
+        current = i-1;
+    }
+    path.push_back(goal);
     return path;
 }

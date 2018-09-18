@@ -20,7 +20,7 @@ class WorkSpace {
     bool setSrc(Node* src) {this->src = src; return true;}
     bool setGoal(Node* goal) {this->goal = goal; return true;}
     vector<Node*> getRRTPath(Tree* tree);
-
+    vector<Node*> getSmoothPath(vector<Node*> preliminaryPath);
   private:
     float x1, y1, x2, y2;
     Node* src;
