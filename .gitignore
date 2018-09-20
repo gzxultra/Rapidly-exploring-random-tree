@@ -31,3 +31,17 @@
 *.out
 *.app
 *_HW
+
+devel/
+gtest/
+src/devel/
+src/build/
+src/catkin/
+src/catkin_generated/
+src/cmake_install.cmake
+catkin_generated/
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+cmake_install.cmake
+src/CTestTestfile.cmake

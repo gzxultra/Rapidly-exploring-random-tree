@@ -66,7 +66,7 @@ bool WorkSpace::isValidMoveOnWorkSpace(Node* fromNode, Node* toNode) {
     bool isValidMove = true;
     for (CubeObstacle* co : obstacles) {
         if (co->isValidMove(fromNode, toNode)) {
-            cout << "Obstructed!" << co->center_x << co->center_y << '(' << fromNode->x << ", " << fromNode->y << ')' << '(' << toNode->x << ", " << toNode->y << ')' <<  endl;
+            // cout << "Obstructed!" << co->center_x << co->center_y << '(' << fromNode->x << ", " << fromNode->y << ')' << '(' << toNode->x << ", " << toNode->y << ')' <<  endl;
             isValidMove = false;
             break;
         }
@@ -94,6 +94,7 @@ vector<Node*> WorkSpace::getRRTPath(Tree* tree) {
     reverse(path.begin(), path.end());
     return path;
 }
+
 
 vector<Node*> WorkSpace::getSmoothPath(vector<Node*> preliminaryPath) {
     vector<Node*> path;

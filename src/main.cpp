@@ -35,7 +35,7 @@ int main() {
         newNode = t->extendNewNode(node, nearestNodeOnTree);
         if (w.isValidMoveOnWorkSpace(nearestNodeOnTree, newNode)) {
             t->addChild(nearestNodeOnTree, newNode);
-            cout << "newChild Added " << newNode->serialize() << endl;
+            // cout << "newChild Added " << newNode->serialize() << endl;
             if (w.isCloseToTheGoal(newNode)) {
                 cout << "Goal Found!" << endl;
                 t->addChild(nearestNodeOnTree, goal);
