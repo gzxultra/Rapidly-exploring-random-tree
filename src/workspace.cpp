@@ -91,7 +91,6 @@ vector<Node*> WorkSpace::getRRTPath(Tree* tree) {
         path.push_back(p);
         p = p->getParentNode();
     }
-    reverse(path.begin(), path.end());
     return path;
 }
 
@@ -107,6 +106,6 @@ vector<Node*> WorkSpace::getSmoothPath(vector<Node*> preliminaryPath) {
         path.push_back(preliminaryPath[current]);
         current = i-1;
     }
-    path.push_back(goal);
+    path.push_back(src);
     return path;
 }
