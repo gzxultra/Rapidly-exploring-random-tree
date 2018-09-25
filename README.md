@@ -10,21 +10,25 @@ Please follow the instructions here:
 * start your ros by `roscore`
 * open another terminal tab and run `cd` ${Project folder}
 * compile this project by `make`
-* run program by `./robotics_rrt`
+* execute the program by `./robotics_rrt`
 * open another terminal tab and run `rosrun rviz rviz`
 * create a Maker in your RVIZ
 * GO Hoosier!
 
-
 ## Screenshots
 
 ![planning](https://github.com/gzxultra/Robotics-RRT/raw/master/screenshot/Screenshot%202018-09-25%2017:37:57.png)
-![video](https://github.com/gzxultra/Robotics-RRT/raw/master/screenshot/final_video.mp4)
 
-## Questions
+Video Here -> ![https://github.com/gzxultra/Robotics-RRT/raw/master/screenshot/final_video.mp4]
 
-Please open an issue in this repo and I'll try to help you.
+## What I haven't cover?
 
+* Configuration space
+    - complicated, I will make it up if got more time
+
+* Kinodynamics
+* More types of Obstacles
+    - they are similar, just need to inherit the base class and implement the collision detecting method
 
 ## Contact
 
