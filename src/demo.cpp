@@ -82,16 +82,18 @@ int main(int argc, char **argv)
         /******************** From here, we are defining and drawing two obstacles in the workspace **************************/
 
         // define two obstacles
-        visualization_msgs::Marker obst1, obst2, obst3;
+        visualization_msgs::Marker obst1, obst2, obst3, srcPoint, goalPoint;
 
         // Set obst1 and obst2 as a Cube and Cylinder, respectively
         obst1.type = visualization_msgs::Marker::CUBE;
         obst2.type = visualization_msgs::Marker::CUBE;
         obst3.type = visualization_msgs::Marker::CUBE;
+        srcPoint.type = visualization_msgs::Marker::CUBE;
+        goalPoint.type = visualization_msgs::Marker::CUBE;
 
         // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-        obst1.header.frame_id = obst2.header.frame_id = obst3.header.frame_id = "map"; //NOTE: this should be "paired" to the frame_id entry in Rviz
-        obst1.header.stamp = obst2.header.stamp = obst3.header.stamp = ros::Time::now();
+        obst1.header.frame_id = obst2.header.frame_id = obst3.header.frame_id = srcPoint.header.frame_id = goalPoint.header.frame_id = "map"; //NOTE: this should be "paired" to the frame_id entry in Rviz
+        obst1.header.stamp = obst2.header.stamp = obst3.header.stamp = srcPoint.header.stamp = goalPoint.header.stamp = ros::Time::now();
 
         // Set the namespace and id
         obst1.ns = obst2.ns = obst3.ns = "obstacles";
@@ -99,13 +101,35 @@ int main(int argc, char **argv)
         obst2.id = 1;
         obst3.id = 2;
 
+        srcPoint.ns = "source";
+        srcPoint.id = 0;
+        goalPoint.ns = "source";
+        goalPoint.id = 1;
+
         // Set the marker action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
         obst1.action = obst2.action = obst3.action = visualization_msgs::Marker::ADD;
+        srcPoint.action = goalPoint.action = visualization_msgs::Marker::ADD;
 
         // Set the scale of the marker
         obst1.scale.x = obst1.scale.y = obst1.scale.z = 2.0; //1x1x1 here means each side of the cube is 1m long
         obst2.scale.x = obst2.scale.y = obst2.scale.z = 2.0; //1x1x1 here means the cylinder as diameter 1m and height 1m
         obst3.scale.x = obst3.scale.y = obst3.scale.z = 2.0; //1x1x1 here means the cylinder as diameter 1m and height 1m
+        srcPoint.scale.x = srcPoint.scale.y = srcPoint.scale.z = 0.5;
+        goalPoint.scale.x = goalPoint.scale.y = goalPoint.scale.z = 0.5;
+
+        srcPoint.color.r = 1.0f;
+        srcPoint.color.g = 1.0f;
+        // srcPoint.color.b = 0.2f;
+        srcPoint.color.a = 1.0;
+        srcPoint.pose.position.x = 0;
+        srcPoint.pose.position.y = 0;
+
+        // goalPoint.color.r = 0.0f;
+        goalPoint.color.g = 1.0f;
+        // goalPoint.color.b = 0.2f;
+        goalPoint.color.a = 1.0;
+        goalPoint.pose.position.x = 19;
+        goalPoint.pose.position.y = 19;
 
         // Set the pose of the marker. since a side of the obstacle obst1 is 1m as defined above, now we place the obst1 center at (1, 2, 0.5). z-axis is height
         obst1.pose.position.x = 2;
@@ -134,12 +158,14 @@ int main(int argc, char **argv)
         obst2.color = obst1.color;
         obst3.color = obst1.color;
 
-        obst1.lifetime = obst2.lifetime = obst3.lifetime = ros::Duration();
+        obst1.lifetime = obst2.lifetime = obst3.lifetime = srcPoint.lifetime = goalPoint.lifetime = ros::Duration();
 
         // publish these messages to ROS system
         marker_pub.publish(obst1);
         marker_pub.publish(obst2);
         marker_pub.publish(obst3);
+        marker_pub.publish(srcPoint);
+        marker_pub.publish(goalPoint);
 
 
         /************************* From here, we are using points, lines, to draw a tree structure *** ******************/
@@ -229,7 +255,6 @@ int main(int argc, char **argv)
         if (isGoalFound && !isPathGet) {
            if (!roughPath.empty()) {
                Node* node = roughPath.back();
-               cout << "printing" << node->x << endl;
                Node* pre = node->getParentNode();
                if (pre != NULL) {
                    pathVertices.points.push_back(toGeoPoint(node));
@@ -249,10 +274,10 @@ int main(int argc, char **argv)
         marker_pub.publish(pathEdges);
         /******************** From here, we are defining and drawing a simple robot **************************/
 
-        // a simple sphere represents a robot
+        // a simple cube represents a robot
         static visualization_msgs::Marker rob;
         static visualization_msgs::Marker path;
-        rob.type = visualization_msgs::Marker::SPHERE;
+        rob.type = visualization_msgs::Marker::CUBE;
         path.type = visualization_msgs::Marker::LINE_STRIP;
 
         rob.header.frame_id = path.header.frame_id = "map"; //NOTE: this should be "paired" to the frame_id entry in Rviz, the default setting in Rviz is "map"
@@ -277,7 +302,7 @@ int main(int argc, char **argv)
         path.scale.x = 0.02;
         path.pose.orientation.w = 1.0;
 
-        if (frame_count % 2 == 0 && isPathGet && !smoothPath.empty()) //update every 2 ROS frames
+        if (frame_count % 30 == 0 && isPathGet && !smoothPath.empty()) //update every 2 ROS frames
         {
             geometry_msgs::Point p = toGeoPoint(smoothPath.back());
             cout << "ROB" << p.x << '-' << p.y << endl;

@@ -94,7 +94,6 @@ vector<Node*> WorkSpace::getRRTPath(Tree* tree) {
     return path;
 }
 
-
 vector<Node*> WorkSpace::getSmoothPath(vector<Node*> preliminaryPath) {
     vector<Node*> path;
     int current = 0;
@@ -103,6 +102,7 @@ vector<Node*> WorkSpace::getSmoothPath(vector<Node*> preliminaryPath) {
     while(current < length-1) {
         int i = current + 1;
         while (i < length and isValidMoveOnWorkSpace(preliminaryPath[current], preliminaryPath[i])) i++;
+        cout << "Hello: "<< preliminaryPath[current]->x << " " << preliminaryPath[current]->y << endl;
         path.push_back(preliminaryPath[current]);
         current = i-1;
     }

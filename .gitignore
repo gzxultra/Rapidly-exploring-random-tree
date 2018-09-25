@@ -31,7 +31,10 @@
 *.out
 *.app
 *_HW
+robotics_rrt
 
+# ros & catkin file
+build/
 devel/
 gtest/
 src/devel/
@@ -45,3 +48,6 @@ CMakeFiles/
 CTestTestfile.cmake
 cmake_install.cmake
 src/CTestTestfile.cmake
+
+# editor
+.vscode/

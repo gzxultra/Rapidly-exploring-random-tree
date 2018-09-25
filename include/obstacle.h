@@ -12,8 +12,8 @@ class BaseObstacle {
         virtual bool isValidMove(Node *fromNode, Node *toNode) {return true;}
         virtual bool isValidNode(Node *node) {return true;}
         float center_x, center_y;
-
 };
+
 
 class CubeObstacle: public BaseObstacle {
     float width, height;
