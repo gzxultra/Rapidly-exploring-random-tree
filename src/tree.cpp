@@ -64,7 +64,7 @@ Node* Tree::extendNewNode(Node *node, Node* closest) {
     float xOfNewNode = closest->x + epsilon * cos(theta);
     float yOfNewNode = closest->y + epsilon * sin(theta);
 
-    Node* newNode = new Node(xOfNewNode, yOfNewNode, 0);
+    Node* newNode = new Node(xOfNewNode, yOfNewNode, 0, node->width, node->height);
     return newNode;
 }
 

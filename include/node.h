@@ -11,7 +11,7 @@ class Node {
     Node *parent;
 
   public:
-    Node(float x, float y, float theta);
+    Node(float x, float y, float theta, float width, float height);
     std::vector <Node*> children;
     bool setParentNode(Node* parent) { this->parent = parent; return true;}
     Node* getParentNode() { return parent;}
@@ -20,6 +20,8 @@ class Node {
     // sorry, don't have enough time to put it fully OOPmakm
     float x;
     float y;
+    float width;
+    float height;
     float theta;
 };
 

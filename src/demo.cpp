@@ -20,7 +20,7 @@ geometry_msgs::Point toGeoPoint(Node* node) {
     geometry_msgs::Point p;
     p.x = node->x;
     p.y = node->y;
-    p.z = node->theta;
+    p.z = 0;
     return p;
 }
 
@@ -50,8 +50,8 @@ int main(int argc, char **argv)
     w.addObstacle(o2);
     w.addObstacle(o3);
 
-    Node *src = new Node(0, 0, 0);
-    Node *goal = new Node(19, 19, 0);
+    Node *src = new Node(0, 0, 0, 1, 1);
+    Node *goal = new Node(19, 19, 0, 1, 1);
     w.setSrc(src);
     w.setGoal(goal);
 
@@ -304,9 +304,12 @@ int main(int argc, char **argv)
 
         if (frame_count % 30 == 0 && isPathGet && !smoothPath.empty()) //update every 2 ROS frames
         {
-            geometry_msgs::Point p = toGeoPoint(smoothPath.back());
+            auto point = smoothPath.back();
+            geometry_msgs::Point p = toGeoPoint(point);
             cout << "ROB" << p.x << '-' << p.y << endl;
+            tf::Quaternion q = tf::createQuaternionFromRPY(0, 0, point->theta);
             rob.pose.position = p;
+            rob.pose.orientation.w = q[3];
             path.points.push_back(p); //for drawing path, which is line strip type
             smoothPath.pop_back();
         }

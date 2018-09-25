@@ -6,11 +6,13 @@
 #include <string>
 
 
-Node::Node(float x, float y, float theta) {
+Node::Node(float x, float y, float theta, float width, float height) {
     this->x = x;
     this->y = y;
     this->theta = theta;
     this->parent = NULL;
+    this->width = width;
+    this->height = height;
 }
 
 std::string Node::serialize() {

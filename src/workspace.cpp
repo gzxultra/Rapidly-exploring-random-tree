@@ -7,6 +7,8 @@
 
 using namespace std;
 
+#define PI 3.14159266
+
 
 WorkSpace::WorkSpace(float x1, float y1, float x2, float y2) {
     this->x1 = x1;
@@ -30,6 +32,7 @@ Node* WorkSpace::generateRandomValidNode(Tree* tree) {
     // a distribution that takes randomness and produces values in specified range
     uniform_real_distribution<> distX(x1, x2);
     uniform_real_distribution<> distY(y1, y2);
+    uniform_real_distribution<> distTheta(0, 2 * PI);
 
     Node* randomNode = NULL;
     Node* closest = NULL;
@@ -37,7 +40,7 @@ Node* WorkSpace::generateRandomValidNode(Tree* tree) {
     bool isValid = false;
 
     while (true) {
-        randomNode = new Node(distX(eng), distY(eng), 0);
+        randomNode = new Node(distX(eng), distY(eng), distTheta(eng), tree->getRoot()->width, tree->getRoot()->height);
 
         // test if node already on the tree
         double distance = 0;
